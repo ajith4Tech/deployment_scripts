@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mattermost
+  namespace: ${NAMESPACE}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mattermost
+  template:
+    metadata:
+      labels:
+        app: mattermost
+    spec:
+      containers:
+      - name: mattermost
+        image: mattermost/mattermost-team-edition:latest
+        env:
+        - name: MM_SQLSETTINGS_DRIVERNAME
+          valueFrom:
+            configMapKeyRef:
+              name: mattermost-config
+              key: MM_SQLSETTINGS_DRIVERNAME
+        - name: MM_SQLSETTINGS_DATASOURCE
+          valueFrom:
+            configMapKeyRef:
+              name: mattermost-config
+              key: MM_SQLSETTINGS_DATASOURCE
+        volumeMounts:
+        - name: mattermost-data
+          mountPath: /mattermost/data
+      volumes:
+      - name: mattermost-data
+        persistentVolumeClaim:
+          claimName: mattermost-pvc

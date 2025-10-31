@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mattermost-config
+  namespace: ${NAMESPACE}
+data:
+  MM_SQLSETTINGS_DRIVERNAME: "postgres"
+  MM_SQLSETTINGS_DATASOURCE: "postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres.${NAMESPACE}.svc.cluster.local:5432/${POSTGRES_DB}?sslmode=disable&connect_timeout=10"
