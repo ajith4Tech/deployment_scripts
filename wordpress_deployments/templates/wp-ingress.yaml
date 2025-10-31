@@ -22,4 +22,4 @@ spec:
   tls:
   - hosts:
     - {{ CLIENT_NAMESPACE }}.wp.framework.t4gc.in
-    secretName: {{ CLIENT_NAMESPACE }}.tls
+    secretName: {{ CLIENT_NAMESPACE }}-wp.tls

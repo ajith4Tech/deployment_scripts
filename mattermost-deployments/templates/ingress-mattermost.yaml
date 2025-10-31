@@ -17,3 +17,7 @@ spec:
             name: mattermost
             port:
               number: 8065
+  tls:
+  - hosts:
+    - ${INGRESS_HOST}
+    secretName: ${NAMESPACE}-mattermost.tls            
